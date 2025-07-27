@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraguay Turismo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        body.light-theme header {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        body.light-theme footer {
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+
+        }
+
+        body.light-theme .description {
+            color: #555;
+        }
+
+        body.light-theme .subtitle {
+            color: #777;
+        }
+
+        body.light-theme .theme-toggle {
+            background-color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00b894;
+        }
+        
+        .theme-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        .theme-toggle {
+            width: 40px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #7dd3c0;
+            border-radius: 50%;
+            top: 2px;
+            right: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Toggle animation when in light mode */
+        body.light-theme .theme-toggle::after {
+            transform: translateX(-20px);
+            background-color: #ffd93d;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Content Box Styles */
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-theme .content-box {
+            background-color: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #00b894;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #bbb;
+        }
+        
+        .description {
+            max-width: 800px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        
+        .wikipedia-link {
+            color: #00b894;
+            text-decoration: none;
+            font-style: italic;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        
+        .cta-button {
+            background-color: #00b894;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 40px;
+        }
+        
+        .cta-button:hover {
+            background-color: #00a085;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
+        }
+        
+        /* Image Gallery Styles */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 30px 0;
+            width: 100%;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: all 150ms ease-in-out;
+            cursor: pointer;
+        }
+        
+        .gallery-image:hover {
+            filter: contrast(80%);
+            transform: scale(1.02);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+        
+        .signature {
+            color: #00b894;
+        }
+        
+        /* Responsive */
+            @media (max-width: 768px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .theme-indicator {
+                font-size: 0.8rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .description {
+                padding: 0 20px;
+            }
+
+            .content-box {
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                gap: 15px;
+            }
+            
+            .gallery-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Paraguay Turismo</div>
+            <div class="theme-indicator">
+                <span id="theme-text">Dark Theme</span>
+                <div class="theme-toggle" id="theme-toggle"></div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="content-box">
+                <h1 class="title">¿Por qué visitar Paraguay?</h1>
+                <p class="subtitle">Descubre el corazón de Sudamérica</p>
+                
+                <p class="description">
+                    Paraguay es un país sin salida al mar ubicado en el corazón de Sudamérica, 
+                    conocido por sus hermosos paisajes naturales, rica cultura guaraní y hospitalidad única. 
+                    Desde las majestuosas Cataratas del Iguazú hasta las históricas Misiones Jesuíticas, 
+                    Paraguay ofrece experiencias inolvidables para todos los viajeros.
+                </p>
+                
+                <div class="image-gallery">
+                    <img src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/170/849/original/Asuncion-4.jpg?1752956344" alt="Asuncion" class="gallery-image">
+                    <img src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/170/848/original/samber.jpg?1752956331" alt="Samber" class="gallery-image">
+                    <img src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/170/847/original/itaipu.jpeg?1752956323" alt="Destino turístico Paraguay 3" class="gallery-image">
+                    <img src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/170/819/original/encar.jpg?1752873539" alt="Destino turístico Paraguay 4" class="gallery-image">
+                </div>
+                
+                <a href="https://es.wikipedia.org/wiki/Turismo_en_Paraguay" class="wikipedia-link">
+                    - Leer más en Wikipedia
+                </a>
+                
+                <button class="cta-button">Explorar Paraguay</button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Coded by <span class="signature"> Vania RD</span></p>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeText = document.getElementById('theme-text');
+        const body = document.body;
+
+  
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        if (currentTheme === 'light') {
+            body.classList.add('light-theme');
+            themeText.textContent = 'Light Theme';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                themeText.textContent = 'Light Theme';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeText.textContent = 'Dark Theme';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
